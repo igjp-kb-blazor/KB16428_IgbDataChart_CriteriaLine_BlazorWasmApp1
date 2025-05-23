@@ -1,0 +1,80 @@
+﻿<div style="text-align: center; margin: 1rem;">
+    <IgbDataChart Name="chart1"
+                  Width="100%"
+                  Height="400px"                  
+                  IsHorizontalZoomEnabled="true"
+                  IsVerticalZoomEnabled="true">
+
+        <!-- データ表示用 -->
+        <IgbCategoryXAxis Name="xAxis1" Label="@nameof(CountryRenewableElectricityItem.Year)" DataSource="@_countryRenewableElectricityItems" Gap="0.2" Interval="1" />
+        <IgbNumericYAxis Name="yAxis1" MinimumValue="0" MaximumValue="140" />
+
+        <!--
+        基準線表示用の軸
+        ※データの目盛は左側、それとは別に「H」「M」「L」の軸注釈を右側に表示しているので、
+        ※左側と同じ目盛間隔になるように軸注釈専用の Y 軸を右側に置いています。
+        ※ただし目盛ごとの数値を表示する必要はないので文字色 (LabelTextColor) は透明色にしています）
+        -->
+        <IgbNumericYAxis Name="yAxis2"
+                         MinimumValue="0"
+                         MaximumValue="140"
+                         LabelLocation="AxisLabelsLocation.OutsideRight"
+                         LabelTextColor="transparent" />
+
+        <!-- データ表示用 -->
+        <IgbColumnSeries Name="Europe"
+                       DataSource="@_countryRenewableElectricityItems" 
+                       XAxisName="xAxis1"
+                       YAxisName="yAxis1"
+                       ValueMemberPath="@nameof(CountryRenewableElectricityItem.Europe)"/>
+
+        <IgbColumnSeries Name="China"
+                       DataSource="@_countryRenewableElectricityItems" 
+                       XAxisName="xAxis1"
+                       YAxisName="yAxis1"
+                       ValueMemberPath="@nameof(CountryRenewableElectricityItem.China)"/>
+
+        <IgbColumnSeries Name="America"
+                       DataSource="@_countryRenewableElectricityItems" 
+                       XAxisName="xAxis1"
+                       YAxisName="yAxis1"
+                       ValueMemberPath="@nameof(CountryRenewableElectricityItem.America)"/>
+
+        <!-- 基準線表示用 -->
+        <IgbValueOverlay Name="lowOverlay"
+                         IsAxisAnnotationEnabled="true"
+                         AxisName="yAxis2"
+                         Value="20"
+                         AxisAnnotationFormatLabelScript="OnFormatLabelLowScript" />
+
+        <IgbValueOverlay Name="midiumOverlay"
+                         IsAxisAnnotationEnabled="true"
+                         AxisName="yAxis2"
+                         Value="60"
+                         AxisAnnotationFormatLabelScript="OnFormatLabelMidiumScript" />
+
+        <IgbValueOverlay Name="highOverlay"
+                         IsAxisAnnotationEnabled="true"
+                         AxisName="yAxis2"
+                         Value="120"
+                         AxisAnnotationFormatLabelScript="OnFormatLabelHighScript" />
+
+    </IgbDataChart>
+</div>
+
+@code {
+    private IEnumerable<CountryRenewableElectricityItem> _countryRenewableElectricityItems = [
+        new () { Year = "2009", Europe = 34, China = 21, America = 19 },
+        new () { Year = "2010", Europe = 43, China = 26, America = 24 },
+        new () { Year = "2011", Europe = 66, China = 29, America = 28 },
+        new () { Year = "2012", Europe = 69, China = 32, America = 26 },
+        new () { Year = "2013", Europe = 58, China = 47, America = 38 },
+        new () { Year = "2014", Europe = 40, China = 46, America = 31 },
+        new () { Year = "2015", Europe = 78, China = 50, America = 19 },
+        new () { Year = "2016", Europe = 13, China = 90, America = 52 },
+        new () { Year = "2017", Europe = 78, China = 132, America = 50 },
+        new () { Year = "2018", Europe = 40, China = 134, America = 34 },
+        new () { Year = "2018", Europe = 40, China = 134, America = 34 },
+        new () { Year = "2019", Europe = 80, China = 96, America = 38 },
+    ];
+}
